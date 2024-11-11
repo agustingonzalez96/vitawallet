@@ -1,0 +1,790 @@
+  [1m[35m (17.2ms)[0m  [1m[35mDROP DATABASE IF EXISTS "vitawalletpractica_api_test"[0m
+  [1m[35m (227.2ms)[0m  [1m[35mCREATE DATABASE "vitawalletpractica_api_test" ENCODING = 'unicode'[0m
+  [1m[35mSQL (0.1ms)[0m  [1m[35mCREATE EXTENSION IF NOT EXISTS "plpgsql"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE IF EXISTS "transactions" CASCADE[0m
+  [1m[35m (6.7ms)[0m  [1m[35mCREATE TABLE "transactions" ("id" bigserial primary key, "user_id" bigint NOT NULL, "transaction_type" character varying, "amount_usd" decimal, "amount_btc" decimal, "balance_usd_at_transaction" decimal(15,2), "balance_btc_at_transaction" decimal(15,2), "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[35m (1.9ms)[0m  [1m[35mCREATE INDEX "index_transactions_on_user_id" ON "transactions" ("user_id")[0m
+  [1m[35m (0.2ms)[0m  [1m[35mDROP TABLE IF EXISTS "users" CASCADE[0m
+  [1m[35m (4.4ms)[0m  [1m[35mCREATE TABLE "users" ("id" bigserial primary key, "name" character varying, "balance_usd" decimal, "balance_btc" decimal, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[35m (2.3ms)[0m  [1m[35mALTER TABLE "transactions" ADD CONSTRAINT "fk_rails_77364e6416"
+FOREIGN KEY ("user_id")
+  REFERENCES "users" ("id")
+[0m
+  [1m[35m (5.0ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" character varying NOT NULL PRIMARY KEY)[0m
+  [1m[35m (0.6ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (1.0ms)[0m  [1m[32mINSERT INTO "schema_migrations" (version) VALUES (20241105203225)[0m
+  [1m[35m (1.0ms)[0m  [1m[32mINSERT INTO "schema_migrations" (version) VALUES
+(20241105201845);
+
+[0m
+  [1m[35m (5.0ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" character varying NOT NULL PRIMARY KEY, "value" character varying, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.5ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mActiveRecord::InternalMetadata Create (0.3ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "key"[0m  [["key", "environment"], ["value", "test"], ["created_at", "2024-11-09 15:47:24.016241"], ["updated_at", "2024-11-09 15:47:24.016241"]]
+  [1m[36mTRANSACTION (0.5ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.2ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[36mActiveRecord::InternalMetadata Load (0.2ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "schema_sha1"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mActiveRecord::InternalMetadata Create (0.2ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "key"[0m  [["key", "schema_sha1"], ["value", "64ffbc2e59d4e768a5a3e4b33b437e49631b7f6a"], ["created_at", "2024-11-09 15:47:24.020981"], ["updated_at", "2024-11-09 15:47:24.020981"]]
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.5ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1[0m  [["key", "schema_sha1"]]
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1[0m  [["key", "schema_sha1"]]
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1[0m  [["key", "schema_sha1"]]
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1[0m  [["key", "schema_sha1"]]
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1[0m  [["key", "schema_sha1"]]
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1[0m  [["key", "schema_sha1"]]
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Create (0.3ms)[0m  [1m[32mINSERT INTO "users" ("name", "balance_usd", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["name", "Test User"], ["balance_usd", "100.0"], ["created_at", "2024-11-09 16:02:32.857005"], ["updated_at", "2024-11-09 16:02:32.857005"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mTransaction Create (0.8ms)[0m  [1m[32mINSERT INTO "transactions" ("user_id", "transaction_type", "amount_usd", "amount_btc", "balance_usd_at_transaction", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"[0m  [["user_id", 1], ["transaction_type", "buy"], ["amount_usd", "50.0"], ["amount_btc", "0.000655023507660499"], ["balance_usd_at_transaction", "100.0"], ["created_at", "2024-11-09 16:02:33.031133"], ["updated_at", "2024-11-09 16:02:33.031133"]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[31mROLLBACK TO SAVEPOINT active_record_1[0m
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Create (0.1ms)[0m  [1m[32mINSERT INTO "users" ("name", "balance_usd", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["name", "Test User"], ["balance_usd", "30.0"], ["created_at", "2024-11-09 16:02:33.057694"], ["updated_at", "2024-11-09 16:02:33.057694"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1[0m  [["key", "schema_sha1"]]
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Create (0.2ms)[0m  [1m[32mINSERT INTO "users" ("name", "balance_usd", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["name", "Test User"], ["balance_usd", "1000.0"], ["created_at", "2024-11-09 16:03:54.979762"], ["updated_at", "2024-11-09 16:03:54.979762"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mTransaction Create (0.7ms)[0m  [1m[32mINSERT INTO "transactions" ("user_id", "transaction_type", "amount_usd", "amount_btc", "balance_usd_at_transaction", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"[0m  [["user_id", 3], ["transaction_type", "buy"], ["amount_usd", "50.0"], ["amount_btc", "0.000655043437908599"], ["balance_usd_at_transaction", "1000.0"], ["created_at", "2024-11-09 16:03:55.108589"], ["updated_at", "2024-11-09 16:03:55.108589"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK TO SAVEPOINT active_record_1[0m
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Create (0.2ms)[0m  [1m[32mINSERT INTO "users" ("name", "balance_usd", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["name", "Test User"], ["balance_usd", "30.0"], ["created_at", "2024-11-09 16:03:55.125487"], ["updated_at", "2024-11-09 16:03:55.125487"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1[0m  [["key", "schema_sha1"]]
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Create (0.2ms)[0m  [1m[32mINSERT INTO "users" ("name", "balance_usd", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["name", "Test User"], ["balance_usd", "1000.0"], ["created_at", "2024-11-09 16:04:41.782494"], ["updated_at", "2024-11-09 16:04:41.782494"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 5], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mTransaction Create (0.6ms)[0m  [1m[32mINSERT INTO "transactions" ("user_id", "transaction_type", "amount_usd", "amount_btc", "balance_usd_at_transaction", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"[0m  [["user_id", 5], ["transaction_type", "buy"], ["amount_usd", "50.0"], ["amount_btc", "0.000655017257235313"], ["balance_usd_at_transaction", "1000.0"], ["created_at", "2024-11-09 16:04:41.864243"], ["updated_at", "2024-11-09 16:04:41.864243"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK TO SAVEPOINT active_record_1[0m
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 5], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Create (0.1ms)[0m  [1m[32mINSERT INTO "users" ("name", "balance_usd", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["name", "Test User"], ["balance_usd", "30.0"], ["created_at", "2024-11-09 16:04:41.881870"], ["updated_at", "2024-11-09 16:04:41.881870"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1[0m  [["key", "schema_sha1"]]
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Create (0.3ms)[0m  [1m[32mINSERT INTO "users" ("name", "balance_usd", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["name", "Test User"], ["balance_usd", "1000.0"], ["created_at", "2024-11-09 16:08:33.910884"], ["updated_at", "2024-11-09 16:08:33.910884"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 7], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mTransaction Create (0.4ms)[0m  [1m[32mINSERT INTO "transactions" ("user_id", "transaction_type", "amount_usd", "amount_btc", "balance_usd_at_transaction", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"[0m  [["user_id", 7], ["transaction_type", "buy"], ["amount_usd", "50.0"], ["amount_btc", "0.000655352608552023"], ["balance_usd_at_transaction", "1000.0"], ["created_at", "2024-11-09 16:08:33.953158"], ["updated_at", "2024-11-09 16:08:33.953158"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK TO SAVEPOINT active_record_1[0m
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 7], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Create (0.1ms)[0m  [1m[32mINSERT INTO "users" ("name", "balance_usd", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["name", "Test User"], ["balance_usd", "30.0"], ["created_at", "2024-11-09 16:08:33.965604"], ["updated_at", "2024-11-09 16:08:33.965604"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1[0m  [["key", "schema_sha1"]]
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Create (0.2ms)[0m  [1m[32mINSERT INTO "users" ("name", "balance_usd", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["name", "Test User"], ["balance_usd", "1000.0"], ["created_at", "2024-11-09 16:10:04.449985"], ["updated_at", "2024-11-09 16:10:04.449985"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 9], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mTransaction Create (0.5ms)[0m  [1m[32mINSERT INTO "transactions" ("user_id", "transaction_type", "amount_usd", "amount_btc", "balance_usd_at_transaction", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"[0m  [["user_id", 9], ["transaction_type", "buy"], ["amount_usd", "50.0"], ["amount_btc", "0.000655449390567941"], ["balance_usd_at_transaction", "1000.0"], ["created_at", "2024-11-09 16:10:04.499462"], ["updated_at", "2024-11-09 16:10:04.499462"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK TO SAVEPOINT active_record_1[0m
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 9], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Create (0.1ms)[0m  [1m[32mINSERT INTO "users" ("name", "balance_usd", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["name", "Test User"], ["balance_usd", "30.0"], ["created_at", "2024-11-09 16:10:04.517252"], ["updated_at", "2024-11-09 16:10:04.517252"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1[0m  [["key", "schema_sha1"]]
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1[0m  [["key", "schema_sha1"]]
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Create (0.3ms)[0m  [1m[32mINSERT INTO "users" ("balance_usd", "created_at", "updated_at") VALUES ($1, $2, $3) RETURNING "id"[0m  [["balance_usd", "1000.0"], ["created_at", "2024-11-09 16:12:53.551533"], ["updated_at", "2024-11-09 16:12:53.551533"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 11], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mTransaction Create (0.5ms)[0m  [1m[32mINSERT INTO "transactions" ("user_id", "transaction_type", "amount_usd", "amount_btc", "balance_usd_at_transaction", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"[0m  [["user_id", 11], ["transaction_type", "buy"], ["amount_usd", "50.0"], ["amount_btc", "0.000655251543505949"], ["balance_usd_at_transaction", "1000.0"], ["created_at", "2024-11-09 16:12:53.591104"], ["updated_at", "2024-11-09 16:12:53.591104"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK TO SAVEPOINT active_record_1[0m
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 11], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Create (0.2ms)[0m  [1m[32mINSERT INTO "users" ("balance_usd", "created_at", "updated_at") VALUES ($1, $2, $3) RETURNING "id"[0m  [["balance_usd", "30.0"], ["created_at", "2024-11-09 16:12:53.607788"], ["updated_at", "2024-11-09 16:12:53.607788"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1[0m  [["key", "schema_sha1"]]
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Create (0.2ms)[0m  [1m[32mINSERT INTO "users" ("balance_usd", "created_at", "updated_at") VALUES ($1, $2, $3) RETURNING "id"[0m  [["balance_usd", "100.0"], ["created_at", "2024-11-09 16:16:05.345153"], ["updated_at", "2024-11-09 16:16:05.345153"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 13], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mTransaction Create (0.4ms)[0m  [1m[32mINSERT INTO "transactions" ("user_id", "transaction_type", "amount_usd", "amount_btc", "balance_usd_at_transaction", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"[0m  [["user_id", 13], ["transaction_type", "buy"], ["amount_usd", "50.0"], ["amount_btc", "0.000655848516223205"], ["balance_usd_at_transaction", "100.0"], ["created_at", "2024-11-09 16:16:05.384839"], ["updated_at", "2024-11-09 16:16:05.384839"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK TO SAVEPOINT active_record_1[0m
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 13], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Create (0.1ms)[0m  [1m[32mINSERT INTO "users" ("balance_usd", "created_at", "updated_at") VALUES ($1, $2, $3) RETURNING "id"[0m  [["balance_usd", "30.0"], ["created_at", "2024-11-09 16:16:05.405603"], ["updated_at", "2024-11-09 16:16:05.405603"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1[0m  [["key", "schema_sha1"]]
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Create (0.2ms)[0m  [1m[32mINSERT INTO "users" ("balance_usd", "balance_btc", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["balance_usd", "1000.0"], ["balance_btc", "0.0"], ["created_at", "2024-11-09 16:24:34.930817"], ["updated_at", "2024-11-09 16:24:34.930817"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mTransaction Create (0.6ms)[0m  [1m[32mINSERT INTO "transactions" ("user_id", "transaction_type", "amount_usd", "amount_btc", "balance_usd_at_transaction", "balance_btc_at_transaction", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING "id"[0m  [["user_id", 15], ["transaction_type", "buy"], ["amount_usd", "100.0"], ["amount_btc", "0.00131277311489811"], ["balance_usd_at_transaction", "1000.0"], ["balance_btc_at_transaction", "0.0"], ["created_at", "2024-11-09 16:24:35.166054"], ["updated_at", "2024-11-09 16:24:35.166054"]]
+  [1m[36mUser Update (0.3ms)[0m  [1m[33mUPDATE "users" SET "balance_usd" = $1, "balance_btc" = $2, "updated_at" = $3 WHERE "users"."id" = $4[0m  [["balance_usd", "900.0"], ["balance_btc", "0.001312773114898109"], ["updated_at", "2024-11-09 16:24:35.167733"], ["id", 15]]
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 15], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 15], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1[0m  [["key", "schema_sha1"]]
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Create (0.2ms)[0m  [1m[32mINSERT INTO "users" ("balance_usd", "balance_btc", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["balance_usd", "1000.0"], ["balance_btc", "0.05"], ["created_at", "2024-11-09 16:26:03.840217"], ["updated_at", "2024-11-09 16:26:03.840217"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mTransaction Create (0.6ms)[0m  [1m[32mINSERT INTO "transactions" ("user_id", "transaction_type", "amount_usd", "amount_btc", "balance_usd_at_transaction", "balance_btc_at_transaction", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING "id"[0m  [["user_id", 16], ["transaction_type", "buy"], ["amount_usd", "100.0"], ["amount_btc", "0.00131263694979213"], ["balance_usd_at_transaction", "1000.0"], ["balance_btc_at_transaction", "0.05"], ["created_at", "2024-11-09 16:26:04.045794"], ["updated_at", "2024-11-09 16:26:04.045794"]]
+  [1m[36mUser Update (0.3ms)[0m  [1m[33mUPDATE "users" SET "balance_usd" = $1, "balance_btc" = $2, "updated_at" = $3 WHERE "users"."id" = $4[0m  [["balance_usd", "900.0"], ["balance_btc", "0.051312636949792126"], ["updated_at", "2024-11-09 16:26:04.047558"], ["id", 16]]
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 16], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 16], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Create (0.1ms)[0m  [1m[32mINSERT INTO "users" ("balance_usd", "balance_btc", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["balance_usd", "1000.0"], ["balance_btc", "0.05"], ["created_at", "2024-11-09 16:26:04.056335"], ["updated_at", "2024-11-09 16:26:04.056335"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mTransaction Create (1.0ms)[0m  [1m[32mINSERT INTO "transactions" ("user_id", "transaction_type", "amount_usd", "amount_btc", "balance_usd_at_transaction", "balance_btc_at_transaction", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING "id"[0m  [["user_id", 17], ["transaction_type", "buy"], ["amount_usd", "100.0"], ["amount_btc", "0.00131263694979213"], ["balance_usd_at_transaction", "1000.0"], ["balance_btc_at_transaction", "0.05"], ["created_at", "2024-11-09 16:26:04.094497"], ["updated_at", "2024-11-09 16:26:04.094497"]]
+  [1m[36mUser Update (0.6ms)[0m  [1m[33mUPDATE "users" SET "balance_usd" = $1, "balance_btc" = $2, "updated_at" = $3 WHERE "users"."id" = $4[0m  [["balance_usd", "900.0"], ["balance_btc", "0.051312636949792126"], ["updated_at", "2024-11-09 16:26:04.098517"], ["id", 17]]
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 17], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 17], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (1.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "transactions"[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Create (0.4ms)[0m  [1m[32mINSERT INTO "users" ("balance_usd", "balance_btc", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["balance_usd", "1000.0"], ["balance_btc", "0.05"], ["created_at", "2024-11-09 16:26:04.135789"], ["updated_at", "2024-11-09 16:26:04.135789"]]
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mTransaction Create (0.9ms)[0m  [1m[32mINSERT INTO "transactions" ("user_id", "transaction_type", "amount_usd", "amount_btc", "balance_usd_at_transaction", "balance_btc_at_transaction", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING "id"[0m  [["user_id", 18], ["transaction_type", "buy"], ["amount_usd", "100.0"], ["amount_btc", "0.00131263694979213"], ["balance_usd_at_transaction", "1000.0"], ["balance_btc_at_transaction", "0.05"], ["created_at", "2024-11-09 16:26:04.166378"], ["updated_at", "2024-11-09 16:26:04.166378"]]
+  [1m[36mUser Update (0.6ms)[0m  [1m[33mUPDATE "users" SET "balance_usd" = $1, "balance_btc" = $2, "updated_at" = $3 WHERE "users"."id" = $4[0m  [["balance_usd", "900.0"], ["balance_btc", "0.051312636949792126"], ["updated_at", "2024-11-09 16:26:04.170501"], ["id", 18]]
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 18], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT COUNT(*) FROM "transactions"[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Create (0.3ms)[0m  [1m[32mINSERT INTO "users" ("balance_usd", "balance_btc", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["balance_usd", "1000.0"], ["balance_btc", "0.05"], ["created_at", "2024-11-09 16:26:04.177082"], ["updated_at", "2024-11-09 16:26:04.177082"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Create (0.2ms)[0m  [1m[32mINSERT INTO "users" ("balance_usd", "balance_btc", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["balance_usd", "1000.0"], ["balance_btc", "0.05"], ["created_at", "2024-11-09 16:26:04.180282"], ["updated_at", "2024-11-09 16:26:04.180282"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mTransaction Create (0.7ms)[0m  [1m[32mINSERT INTO "transactions" ("user_id", "transaction_type", "amount_usd", "amount_btc", "balance_usd_at_transaction", "balance_btc_at_transaction", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING "id"[0m  [["user_id", 20], ["transaction_type", "buy"], ["amount_usd", "100.0"], ["amount_btc", "0.00131263694979213"], ["balance_usd_at_transaction", "1000.0"], ["balance_btc_at_transaction", "0.05"], ["created_at", "2024-11-09 16:26:04.209792"], ["updated_at", "2024-11-09 16:26:04.209792"]]
+  [1m[36mUser Update (0.4ms)[0m  [1m[33mUPDATE "users" SET "balance_usd" = $1, "balance_btc" = $2, "updated_at" = $3 WHERE "users"."id" = $4[0m  [["balance_usd", "900.0"], ["balance_btc", "0.051312636949792126"], ["updated_at", "2024-11-09 16:26:04.213076"], ["id", 20]]
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 20], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 20], ["LIMIT", 1]]
+  [1m[35m (0.6ms)[0m  [1m[34mSELECT COUNT(*) FROM "transactions"[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Create (0.6ms)[0m  [1m[32mINSERT INTO "users" ("balance_usd", "balance_btc", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["balance_usd", "1000.0"], ["balance_btc", "0.05"], ["created_at", "2024-11-09 16:26:04.249682"], ["updated_at", "2024-11-09 16:26:04.249682"]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mTransaction Create (0.8ms)[0m  [1m[32mINSERT INTO "transactions" ("user_id", "transaction_type", "amount_usd", "amount_btc", "balance_usd_at_transaction", "balance_btc_at_transaction", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING "id"[0m  [["user_id", 21], ["transaction_type", "sell"], ["amount_usd", "50.0"], ["amount_btc", "0.000656318474896063"], ["balance_usd_at_transaction", "1000.0"], ["balance_btc_at_transaction", "0.05"], ["created_at", "2024-11-09 16:26:04.283012"], ["updated_at", "2024-11-09 16:26:04.283012"]]
+  [1m[36mUser Update (0.5ms)[0m  [1m[33mUPDATE "users" SET "balance_usd" = $1, "balance_btc" = $2, "updated_at" = $3 WHERE "users"."id" = $4[0m  [["balance_usd", "1000.000656318474896063"], ["balance_btc", "-49.95"], ["updated_at", "2024-11-09 16:26:04.287583"], ["id", 21]]
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 21], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 21], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1[0m  [["key", "schema_sha1"]]
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Create (0.2ms)[0m  [1m[32mINSERT INTO "users" ("balance_usd", "balance_btc", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["balance_usd", "1000.0"], ["balance_btc", "0.05"], ["created_at", "2024-11-09 16:28:14.495151"], ["updated_at", "2024-11-09 16:28:14.495151"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mTransaction Create (0.8ms)[0m  [1m[32mINSERT INTO "transactions" ("user_id", "transaction_type", "amount_usd", "amount_btc", "balance_usd_at_transaction", "balance_btc_at_transaction", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING "id"[0m  [["user_id", 22], ["transaction_type", "buy"], ["amount_usd", "100.0"], ["amount_btc", "0.0013133591268135"], ["balance_usd_at_transaction", "1000.0"], ["balance_btc_at_transaction", "0.05"], ["created_at", "2024-11-09 16:28:14.616245"], ["updated_at", "2024-11-09 16:28:14.616245"]]
+  [1m[36mUser Update (0.1ms)[0m  [1m[33mUPDATE "users" SET "balance_usd" = $1, "balance_btc" = $2, "updated_at" = $3 WHERE "users"."id" = $4[0m  [["balance_usd", "900.0"], ["balance_btc", "0.0513133591268135"], ["updated_at", "2024-11-09 16:28:14.618105"], ["id", 22]]
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 22], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 22], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Create (0.2ms)[0m  [1m[32mINSERT INTO "users" ("balance_usd", "balance_btc", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["balance_usd", "1000.0"], ["balance_btc", "0.05"], ["created_at", "2024-11-09 16:28:14.627141"], ["updated_at", "2024-11-09 16:28:14.627141"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mTransaction Create (0.6ms)[0m  [1m[32mINSERT INTO "transactions" ("user_id", "transaction_type", "amount_usd", "amount_btc", "balance_usd_at_transaction", "balance_btc_at_transaction", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING "id"[0m  [["user_id", 23], ["transaction_type", "buy"], ["amount_usd", "100.0"], ["amount_btc", "0.0013133591268135"], ["balance_usd_at_transaction", "1000.0"], ["balance_btc_at_transaction", "0.05"], ["created_at", "2024-11-09 16:28:14.656518"], ["updated_at", "2024-11-09 16:28:14.656518"]]
+  [1m[36mUser Update (0.5ms)[0m  [1m[33mUPDATE "users" SET "balance_usd" = $1, "balance_btc" = $2, "updated_at" = $3 WHERE "users"."id" = $4[0m  [["balance_usd", "900.0"], ["balance_btc", "0.0513133591268135"], ["updated_at", "2024-11-09 16:28:14.659221"], ["id", 23]]
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 23], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 23], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.7ms)[0m  [1m[34mSELECT COUNT(*) FROM "transactions"[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Create (0.5ms)[0m  [1m[32mINSERT INTO "users" ("balance_usd", "balance_btc", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["balance_usd", "1000.0"], ["balance_btc", "0.05"], ["created_at", "2024-11-09 16:28:14.698319"], ["updated_at", "2024-11-09 16:28:14.698319"]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mTransaction Create (0.9ms)[0m  [1m[32mINSERT INTO "transactions" ("user_id", "transaction_type", "amount_usd", "amount_btc", "balance_usd_at_transaction", "balance_btc_at_transaction", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING "id"[0m  [["user_id", 24], ["transaction_type", "buy"], ["amount_usd", "100.0"], ["amount_btc", "0.0013133591268135"], ["balance_usd_at_transaction", "1000.0"], ["balance_btc_at_transaction", "0.05"], ["created_at", "2024-11-09 16:28:14.795860"], ["updated_at", "2024-11-09 16:28:14.795860"]]
+  [1m[36mUser Update (0.7ms)[0m  [1m[33mUPDATE "users" SET "balance_usd" = $1, "balance_btc" = $2, "updated_at" = $3 WHERE "users"."id" = $4[0m  [["balance_usd", "900.0"], ["balance_btc", "0.0513133591268135"], ["updated_at", "2024-11-09 16:28:14.800287"], ["id", 24]]
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 24], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.5ms)[0m  [1m[34mSELECT COUNT(*) FROM "transactions"[0m
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Create (0.5ms)[0m  [1m[32mINSERT INTO "users" ("balance_usd", "balance_btc", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["balance_usd", "1000.0"], ["balance_btc", "0.05"], ["created_at", "2024-11-09 16:28:14.809846"], ["updated_at", "2024-11-09 16:28:14.809846"]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Create (0.2ms)[0m  [1m[32mINSERT INTO "users" ("balance_usd", "balance_btc", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["balance_usd", "1000.0"], ["balance_btc", "0.05"], ["created_at", "2024-11-09 16:28:14.822590"], ["updated_at", "2024-11-09 16:28:14.822590"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mTransaction Create (0.5ms)[0m  [1m[32mINSERT INTO "transactions" ("user_id", "transaction_type", "amount_usd", "amount_btc", "balance_usd_at_transaction", "balance_btc_at_transaction", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING "id"[0m  [["user_id", 26], ["transaction_type", "buy"], ["amount_usd", "100.0"], ["amount_btc", "0.0013133591268135"], ["balance_usd_at_transaction", "1000.0"], ["balance_btc_at_transaction", "0.05"], ["created_at", "2024-11-09 16:28:14.846843"], ["updated_at", "2024-11-09 16:28:14.846843"]]
+  [1m[36mUser Update (0.3ms)[0m  [1m[33mUPDATE "users" SET "balance_usd" = $1, "balance_btc" = $2, "updated_at" = $3 WHERE "users"."id" = $4[0m  [["balance_usd", "900.0"], ["balance_btc", "0.0513133591268135"], ["updated_at", "2024-11-09 16:28:14.849882"], ["id", 26]]
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 26], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 26], ["LIMIT", 1]]
+  [1m[35m (0.6ms)[0m  [1m[34mSELECT COUNT(*) FROM "transactions"[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Create (0.4ms)[0m  [1m[32mINSERT INTO "users" ("balance_usd", "balance_btc", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["balance_usd", "1000.0"], ["balance_btc", "0.05"], ["created_at", "2024-11-09 16:28:14.883395"], ["updated_at", "2024-11-09 16:28:14.883395"]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mTransaction Create (0.8ms)[0m  [1m[32mINSERT INTO "transactions" ("user_id", "transaction_type", "amount_usd", "amount_btc", "balance_usd_at_transaction", "balance_btc_at_transaction", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING "id"[0m  [["user_id", 27], ["transaction_type", "sell"], ["amount_usd", "50.0"], ["amount_btc", "0.00065667956340675"], ["balance_usd_at_transaction", "1000.0"], ["balance_btc_at_transaction", "0.05"], ["created_at", "2024-11-09 16:28:14.916957"], ["updated_at", "2024-11-09 16:28:14.916957"]]
+  [1m[36mUser Update (0.5ms)[0m  [1m[33mUPDATE "users" SET "balance_usd" = $1, "balance_btc" = $2, "updated_at" = $3 WHERE "users"."id" = $4[0m  [["balance_usd", "1000.0006566795634067499"], ["balance_btc", "-49.95"], ["updated_at", "2024-11-09 16:28:14.921988"], ["id", 27]]
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 27], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 27], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1[0m  [["key", "schema_sha1"]]
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Create (0.2ms)[0m  [1m[32mINSERT INTO "users" ("balance_usd", "balance_btc", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["balance_usd", "1000.0"], ["balance_btc", "0.05"], ["created_at", "2024-11-09 16:29:58.577506"], ["updated_at", "2024-11-09 16:29:58.577506"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mTransaction Create (0.6ms)[0m  [1m[32mINSERT INTO "transactions" ("user_id", "transaction_type", "amount_usd", "amount_btc", "balance_usd_at_transaction", "balance_btc_at_transaction", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING "id"[0m  [["user_id", 28], ["transaction_type", "buy"], ["amount_usd", "100.0"], ["amount_btc", "0.00131377002246605"], ["balance_usd_at_transaction", "1000.0"], ["balance_btc_at_transaction", "0.05"], ["created_at", "2024-11-09 16:29:58.787087"], ["updated_at", "2024-11-09 16:29:58.787087"]]
+  [1m[36mUser Update (0.3ms)[0m  [1m[33mUPDATE "users" SET "balance_usd" = $1, "balance_btc" = $2, "updated_at" = $3 WHERE "users"."id" = $4[0m  [["balance_usd", "900.0"], ["balance_btc", "0.051313770022466046"], ["updated_at", "2024-11-09 16:29:58.788789"], ["id", 28]]
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 28], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 28], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Create (0.1ms)[0m  [1m[32mINSERT INTO "users" ("balance_usd", "balance_btc", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["balance_usd", "1000.0"], ["balance_btc", "0.05"], ["created_at", "2024-11-09 16:29:58.797464"], ["updated_at", "2024-11-09 16:29:58.797464"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mTransaction Create (0.5ms)[0m  [1m[32mINSERT INTO "transactions" ("user_id", "transaction_type", "amount_usd", "amount_btc", "balance_usd_at_transaction", "balance_btc_at_transaction", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING "id"[0m  [["user_id", 29], ["transaction_type", "buy"], ["amount_usd", "100.0"], ["amount_btc", "0.00131377002246605"], ["balance_usd_at_transaction", "1000.0"], ["balance_btc_at_transaction", "0.05"], ["created_at", "2024-11-09 16:29:58.819652"], ["updated_at", "2024-11-09 16:29:58.819652"]]
+  [1m[36mUser Update (0.2ms)[0m  [1m[33mUPDATE "users" SET "balance_usd" = $1, "balance_btc" = $2, "updated_at" = $3 WHERE "users"."id" = $4[0m  [["balance_usd", "900.0"], ["balance_btc", "0.051313770022466046"], ["updated_at", "2024-11-09 16:29:58.821709"], ["id", 29]]
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 29], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 29], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.6ms)[0m  [1m[34mSELECT COUNT(*) FROM "transactions"[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Create (0.4ms)[0m  [1m[32mINSERT INTO "users" ("balance_usd", "balance_btc", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["balance_usd", "1000.0"], ["balance_btc", "0.05"], ["created_at", "2024-11-09 16:29:58.858950"], ["updated_at", "2024-11-09 16:29:58.858950"]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mTransaction Create (0.9ms)[0m  [1m[32mINSERT INTO "transactions" ("user_id", "transaction_type", "amount_usd", "amount_btc", "balance_usd_at_transaction", "balance_btc_at_transaction", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING "id"[0m  [["user_id", 30], ["transaction_type", "buy"], ["amount_usd", "100.0"], ["amount_btc", "0.00131377002246605"], ["balance_usd_at_transaction", "1000.0"], ["balance_btc_at_transaction", "0.05"], ["created_at", "2024-11-09 16:29:58.889020"], ["updated_at", "2024-11-09 16:29:58.889020"]]
+  [1m[36mUser Update (0.5ms)[0m  [1m[33mUPDATE "users" SET "balance_usd" = $1, "balance_btc" = $2, "updated_at" = $3 WHERE "users"."id" = $4[0m  [["balance_usd", "900.0"], ["balance_btc", "0.051313770022466046"], ["updated_at", "2024-11-09 16:29:58.892815"], ["id", 30]]
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 30], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT COUNT(*) FROM "transactions"[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Create (0.3ms)[0m  [1m[32mINSERT INTO "users" ("balance_usd", "balance_btc", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["balance_usd", "1000.0"], ["balance_btc", "0.05"], ["created_at", "2024-11-09 16:29:58.898974"], ["updated_at", "2024-11-09 16:29:58.898974"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Create (0.2ms)[0m  [1m[32mINSERT INTO "users" ("balance_usd", "balance_btc", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["balance_usd", "1000.0"], ["balance_btc", "0.05"], ["created_at", "2024-11-09 16:29:58.902254"], ["updated_at", "2024-11-09 16:29:58.902254"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mTransaction Create (0.7ms)[0m  [1m[32mINSERT INTO "transactions" ("user_id", "transaction_type", "amount_usd", "amount_btc", "balance_usd_at_transaction", "balance_btc_at_transaction", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING "id"[0m  [["user_id", 32], ["transaction_type", "buy"], ["amount_usd", "100.0"], ["amount_btc", "0.00131377002246605"], ["balance_usd_at_transaction", "1000.0"], ["balance_btc_at_transaction", "0.05"], ["created_at", "2024-11-09 16:29:58.931606"], ["updated_at", "2024-11-09 16:29:58.931606"]]
+  [1m[36mUser Update (0.5ms)[0m  [1m[33mUPDATE "users" SET "balance_usd" = $1, "balance_btc" = $2, "updated_at" = $3 WHERE "users"."id" = $4[0m  [["balance_usd", "900.0"], ["balance_btc", "0.051313770022466046"], ["updated_at", "2024-11-09 16:29:58.935629"], ["id", 32]]
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 32], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 32], ["LIMIT", 1]]
+  [1m[35m (1.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "transactions"[0m
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Create (0.4ms)[0m  [1m[32mINSERT INTO "users" ("balance_usd", "balance_btc", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["balance_usd", "1000.0"], ["balance_btc", "0.05"], ["created_at", "2024-11-09 16:29:58.969723"], ["updated_at", "2024-11-09 16:29:58.969723"]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mTransaction Create (0.8ms)[0m  [1m[32mINSERT INTO "transactions" ("user_id", "transaction_type", "amount_usd", "amount_btc", "balance_usd_at_transaction", "balance_btc_at_transaction", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING "id"[0m  [["user_id", 33], ["transaction_type", "sell"], ["amount_usd", "50.0"], ["amount_btc", "0.000656885011233023"], ["balance_usd_at_transaction", "1000.0"], ["balance_btc_at_transaction", "0.05"], ["created_at", "2024-11-09 16:29:58.999669"], ["updated_at", "2024-11-09 16:29:58.999669"]]
+  [1m[36mUser Update (0.5ms)[0m  [1m[33mUPDATE "users" SET "balance_usd" = $1, "balance_btc" = $2, "updated_at" = $3 WHERE "users"."id" = $4[0m  [["balance_usd", "1000.0006568850112330228"], ["balance_btc", "-49.95"], ["updated_at", "2024-11-09 16:29:59.003177"], ["id", 33]]
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 33], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 33], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1[0m  [["key", "schema_sha1"]]
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Create (0.2ms)[0m  [1m[32mINSERT INTO "users" ("balance_usd", "balance_btc", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["balance_usd", "1000.0"], ["balance_btc", "0.05"], ["created_at", "2024-11-09 16:30:50.749292"], ["updated_at", "2024-11-09 16:30:50.749292"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mTransaction Create (0.7ms)[0m  [1m[32mINSERT INTO "transactions" ("user_id", "transaction_type", "amount_usd", "amount_btc", "balance_usd_at_transaction", "balance_btc_at_transaction", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING "id"[0m  [["user_id", 34], ["transaction_type", "buy"], ["amount_usd", "100.0"], ["amount_btc", "0.00131456845061642"], ["balance_usd_at_transaction", "1000.0"], ["balance_btc_at_transaction", "0.05"], ["created_at", "2024-11-09 16:30:50.888021"], ["updated_at", "2024-11-09 16:30:50.888021"]]
+  [1m[36mUser Update (0.2ms)[0m  [1m[33mUPDATE "users" SET "balance_usd" = $1, "balance_btc" = $2, "updated_at" = $3 WHERE "users"."id" = $4[0m  [["balance_usd", "900.0"], ["balance_btc", "0.051314568450616418"], ["updated_at", "2024-11-09 16:30:50.889972"], ["id", 34]]
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 34], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 34], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Create (0.2ms)[0m  [1m[32mINSERT INTO "users" ("balance_usd", "balance_btc", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["balance_usd", "1000.0"], ["balance_btc", "0.05"], ["created_at", "2024-11-09 16:30:50.899315"], ["updated_at", "2024-11-09 16:30:50.899315"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mTransaction Create (0.6ms)[0m  [1m[32mINSERT INTO "transactions" ("user_id", "transaction_type", "amount_usd", "amount_btc", "balance_usd_at_transaction", "balance_btc_at_transaction", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING "id"[0m  [["user_id", 35], ["transaction_type", "buy"], ["amount_usd", "100.0"], ["amount_btc", "0.00131456845061642"], ["balance_usd_at_transaction", "1000.0"], ["balance_btc_at_transaction", "0.05"], ["created_at", "2024-11-09 16:30:50.923942"], ["updated_at", "2024-11-09 16:30:50.923942"]]
+  [1m[36mUser Update (0.4ms)[0m  [1m[33mUPDATE "users" SET "balance_usd" = $1, "balance_btc" = $2, "updated_at" = $3 WHERE "users"."id" = $4[0m  [["balance_usd", "900.0"], ["balance_btc", "0.051314568450616418"], ["updated_at", "2024-11-09 16:30:50.926456"], ["id", 35]]
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 35], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 35], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.7ms)[0m  [1m[34mSELECT COUNT(*) FROM "transactions"[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Create (0.4ms)[0m  [1m[32mINSERT INTO "users" ("balance_usd", "balance_btc", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["balance_usd", "1000.0"], ["balance_btc", "0.05"], ["created_at", "2024-11-09 16:30:50.962309"], ["updated_at", "2024-11-09 16:30:50.962309"]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mTransaction Create (0.3ms)[0m  [1m[32mINSERT INTO "transactions" ("user_id", "transaction_type", "amount_usd", "amount_btc", "balance_usd_at_transaction", "balance_btc_at_transaction", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING "id"[0m  [["user_id", 36], ["transaction_type", "buy"], ["amount_usd", "100.0"], ["amount_btc", "0.00131456845061642"], ["balance_usd_at_transaction", "1000.0"], ["balance_btc_at_transaction", "0.05"], ["created_at", "2024-11-09 16:30:50.988915"], ["updated_at", "2024-11-09 16:30:50.988915"]]
+  [1m[36mUser Update (0.3ms)[0m  [1m[33mUPDATE "users" SET "balance_usd" = $1, "balance_btc" = $2, "updated_at" = $3 WHERE "users"."id" = $4[0m  [["balance_usd", "900.0"], ["balance_btc", "0.051314568450616418"], ["updated_at", "2024-11-09 16:30:50.990558"], ["id", 36]]
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 36], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "transactions"[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Create (0.2ms)[0m  [1m[32mINSERT INTO "users" ("balance_usd", "balance_btc", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["balance_usd", "1000.0"], ["balance_btc", "0.05"], ["created_at", "2024-11-09 16:30:50.993854"], ["updated_at", "2024-11-09 16:30:50.993854"]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Create (0.2ms)[0m  [1m[32mINSERT INTO "users" ("balance_usd", "balance_btc", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["balance_usd", "1000.0"], ["balance_btc", "0.05"], ["created_at", "2024-11-09 16:30:51.004025"], ["updated_at", "2024-11-09 16:30:51.004025"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mTransaction Create (0.5ms)[0m  [1m[32mINSERT INTO "transactions" ("user_id", "transaction_type", "amount_usd", "amount_btc", "balance_usd_at_transaction", "balance_btc_at_transaction", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING "id"[0m  [["user_id", 38], ["transaction_type", "buy"], ["amount_usd", "100.0"], ["amount_btc", "0.00131456845061642"], ["balance_usd_at_transaction", "1000.0"], ["balance_btc_at_transaction", "0.05"], ["created_at", "2024-11-09 16:30:51.030002"], ["updated_at", "2024-11-09 16:30:51.030002"]]
+  [1m[36mUser Update (0.3ms)[0m  [1m[33mUPDATE "users" SET "balance_usd" = $1, "balance_btc" = $2, "updated_at" = $3 WHERE "users"."id" = $4[0m  [["balance_usd", "900.0"], ["balance_btc", "0.051314568450616418"], ["updated_at", "2024-11-09 16:30:51.032736"], ["id", 38]]
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 38], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 38], ["LIMIT", 1]]
+  [1m[35m (0.6ms)[0m  [1m[34mSELECT COUNT(*) FROM "transactions"[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Create (0.4ms)[0m  [1m[32mINSERT INTO "users" ("balance_usd", "balance_btc", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["balance_usd", "1000.0"], ["balance_btc", "0.05"], ["created_at", "2024-11-09 16:30:51.062537"], ["updated_at", "2024-11-09 16:30:51.062537"]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mTransaction Create (0.7ms)[0m  [1m[32mINSERT INTO "transactions" ("user_id", "transaction_type", "amount_usd", "amount_btc", "balance_usd_at_transaction", "balance_btc_at_transaction", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING "id"[0m  [["user_id", 39], ["transaction_type", "sell"], ["amount_usd", "50.0"], ["amount_btc", "0.000657284225308209"], ["balance_usd_at_transaction", "1000.0"], ["balance_btc_at_transaction", "0.05"], ["created_at", "2024-11-09 16:30:51.092630"], ["updated_at", "2024-11-09 16:30:51.092630"]]
+  [1m[36mUser Update (0.4ms)[0m  [1m[33mUPDATE "users" SET "balance_usd" = $1, "balance_btc" = $2, "updated_at" = $3 WHERE "users"."id" = $4[0m  [["balance_usd", "1000.0006572842253082091"], ["balance_btc", "-49.95"], ["updated_at", "2024-11-09 16:30:51.095538"], ["id", 39]]
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 39], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 39], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1[0m  [["key", "schema_sha1"]]
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Create (0.2ms)[0m  [1m[32mINSERT INTO "users" ("balance_usd", "balance_btc", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["balance_usd", "1000.0"], ["balance_btc", "0.05"], ["created_at", "2024-11-09 16:31:57.061029"], ["updated_at", "2024-11-09 16:31:57.061029"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mTransaction Create (0.7ms)[0m  [1m[32mINSERT INTO "transactions" ("user_id", "transaction_type", "amount_usd", "amount_btc", "balance_usd_at_transaction", "balance_btc_at_transaction", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING "id"[0m  [["user_id", 40], ["transaction_type", "buy"], ["amount_usd", "100.0"], ["amount_btc", "0.00131444651060247"], ["balance_usd_at_transaction", "1000.0"], ["balance_btc_at_transaction", "0.05"], ["created_at", "2024-11-09 16:31:57.522442"], ["updated_at", "2024-11-09 16:31:57.522442"]]
+  [1m[36mUser Update (0.3ms)[0m  [1m[33mUPDATE "users" SET "balance_usd" = $1, "balance_btc" = $2, "updated_at" = $3 WHERE "users"."id" = $4[0m  [["balance_usd", "900.0"], ["balance_btc", "0.051314446510602468"], ["updated_at", "2024-11-09 16:31:57.524429"], ["id", 40]]
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 40], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 40], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Create (0.1ms)[0m  [1m[32mINSERT INTO "users" ("balance_usd", "balance_btc", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["balance_usd", "1000.0"], ["balance_btc", "0.05"], ["created_at", "2024-11-09 16:31:57.533755"], ["updated_at", "2024-11-09 16:31:57.533755"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mTransaction Create (0.6ms)[0m  [1m[32mINSERT INTO "transactions" ("user_id", "transaction_type", "amount_usd", "amount_btc", "balance_usd_at_transaction", "balance_btc_at_transaction", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING "id"[0m  [["user_id", 41], ["transaction_type", "buy"], ["amount_usd", "100.0"], ["amount_btc", "0.00131444651060247"], ["balance_usd_at_transaction", "1000.0"], ["balance_btc_at_transaction", "0.05"], ["created_at", "2024-11-09 16:31:57.559972"], ["updated_at", "2024-11-09 16:31:57.559972"]]
+  [1m[36mUser Update (0.3ms)[0m  [1m[33mUPDATE "users" SET "balance_usd" = $1, "balance_btc" = $2, "updated_at" = $3 WHERE "users"."id" = $4[0m  [["balance_usd", "900.0"], ["balance_btc", "0.051314446510602468"], ["updated_at", "2024-11-09 16:31:57.562496"], ["id", 41]]
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 41], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 41], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.6ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.8ms)[0m  [1m[34mSELECT COUNT(*) FROM "transactions"[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Create (0.3ms)[0m  [1m[32mINSERT INTO "users" ("balance_usd", "balance_btc", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["balance_usd", "1000.0"], ["balance_btc", "0.05"], ["created_at", "2024-11-09 16:31:57.600159"], ["updated_at", "2024-11-09 16:31:57.600159"]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mTransaction Create (0.9ms)[0m  [1m[32mINSERT INTO "transactions" ("user_id", "transaction_type", "amount_usd", "amount_btc", "balance_usd_at_transaction", "balance_btc_at_transaction", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING "id"[0m  [["user_id", 42], ["transaction_type", "buy"], ["amount_usd", "100.0"], ["amount_btc", "0.00131444651060247"], ["balance_usd_at_transaction", "1000.0"], ["balance_btc_at_transaction", "0.05"], ["created_at", "2024-11-09 16:31:57.633517"], ["updated_at", "2024-11-09 16:31:57.633517"]]
+  [1m[36mUser Update (0.5ms)[0m  [1m[33mUPDATE "users" SET "balance_usd" = $1, "balance_btc" = $2, "updated_at" = $3 WHERE "users"."id" = $4[0m  [["balance_usd", "900.0"], ["balance_btc", "0.051314446510602468"], ["updated_at", "2024-11-09 16:31:57.638844"], ["id", 42]]
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 42], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT COUNT(*) FROM "transactions"[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Create (0.3ms)[0m  [1m[32mINSERT INTO "users" ("balance_usd", "balance_btc", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["balance_usd", "1000.0"], ["balance_btc", "0.05"], ["created_at", "2024-11-09 16:31:57.645125"], ["updated_at", "2024-11-09 16:31:57.645125"]]
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Create (0.3ms)[0m  [1m[32mINSERT INTO "users" ("balance_usd", "balance_btc", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["balance_usd", "1000.0"], ["balance_btc", "0.05"], ["created_at", "2024-11-09 16:32:47.963401"], ["updated_at", "2024-11-09 16:32:47.963401"]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mTransaction Create (0.7ms)[0m  [1m[32mINSERT INTO "transactions" ("user_id", "transaction_type", "amount_usd", "amount_btc", "balance_usd_at_transaction", "balance_btc_at_transaction", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING "id"[0m  [["user_id", 44], ["transaction_type", "buy"], ["amount_usd", "100.0"], ["amount_btc", "0.0013138419657384"], ["balance_usd_at_transaction", "1000.0"], ["balance_btc_at_transaction", "0.05"], ["created_at", "2024-11-09 16:32:48.042089"], ["updated_at", "2024-11-09 16:32:48.042089"]]
+  [1m[36mUser Update (0.3ms)[0m  [1m[33mUPDATE "users" SET "balance_usd" = $1, "balance_btc" = $2, "updated_at" = $3 WHERE "users"."id" = $4[0m  [["balance_usd", "900.0"], ["balance_btc", "0.051313841965738396"], ["updated_at", "2024-11-09 16:32:48.050773"], ["id", 44]]
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 44], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 44], ["LIMIT", 1]]
+  [1m[35m (0.5ms)[0m  [1m[34mSELECT COUNT(*) FROM "transactions"[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Create (0.4ms)[0m  [1m[32mINSERT INTO "users" ("balance_usd", "balance_btc", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["balance_usd", "1000.0"], ["balance_btc", "0.05"], ["created_at", "2024-11-09 16:32:48.095854"], ["updated_at", "2024-11-09 16:32:48.095854"]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mTransaction Create (0.4ms)[0m  [1m[32mINSERT INTO "transactions" ("user_id", "transaction_type", "amount_usd", "amount_btc", "balance_usd_at_transaction", "balance_btc_at_transaction", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING "id"[0m  [["user_id", 45], ["transaction_type", "sell"], ["amount_usd", "50.0"], ["amount_btc", "0.000656920982869198"], ["balance_usd_at_transaction", "1000.0"], ["balance_btc_at_transaction", "0.05"], ["created_at", "2024-11-09 16:32:48.133170"], ["updated_at", "2024-11-09 16:32:48.133170"]]
+  [1m[36mUser Update (0.4ms)[0m  [1m[33mUPDATE "users" SET "balance_usd" = $1, "balance_btc" = $2, "updated_at" = $3 WHERE "users"."id" = $4[0m  [["balance_usd", "1000.0006569209828691982"], ["balance_btc", "-49.95"], ["updated_at", "2024-11-09 16:32:48.141442"], ["id", 45]]
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 45], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mUser Load (1.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 45], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.5ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1[0m  [["key", "schema_sha1"]]
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Create (0.2ms)[0m  [1m[32mINSERT INTO "users" ("balance_usd", "balance_btc", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["balance_usd", "1000.0"], ["balance_btc", "0.05"], ["created_at", "2024-11-09 16:33:07.022971"], ["updated_at", "2024-11-09 16:33:07.022971"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mTransaction Create (0.6ms)[0m  [1m[32mINSERT INTO "transactions" ("user_id", "transaction_type", "amount_usd", "amount_btc", "balance_usd_at_transaction", "balance_btc_at_transaction", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING "id"[0m  [["user_id", 46], ["transaction_type", "buy"], ["amount_usd", "100.0"], ["amount_btc", "0.0013138419657384"], ["balance_usd_at_transaction", "1000.0"], ["balance_btc_at_transaction", "0.05"], ["created_at", "2024-11-09 16:33:07.229921"], ["updated_at", "2024-11-09 16:33:07.229921"]]
+  [1m[36mUser Update (0.3ms)[0m  [1m[33mUPDATE "users" SET "balance_usd" = $1, "balance_btc" = $2, "updated_at" = $3 WHERE "users"."id" = $4[0m  [["balance_usd", "900.0"], ["balance_btc", "0.051313841965738396"], ["updated_at", "2024-11-09 16:33:07.231533"], ["id", 46]]
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 46], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 46], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Create (0.1ms)[0m  [1m[32mINSERT INTO "users" ("balance_usd", "balance_btc", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["balance_usd", "1000.0"], ["balance_btc", "0.05"], ["created_at", "2024-11-09 16:33:07.239805"], ["updated_at", "2024-11-09 16:33:07.239805"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mTransaction Create (0.5ms)[0m  [1m[32mINSERT INTO "transactions" ("user_id", "transaction_type", "amount_usd", "amount_btc", "balance_usd_at_transaction", "balance_btc_at_transaction", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING "id"[0m  [["user_id", 47], ["transaction_type", "buy"], ["amount_usd", "100.0"], ["amount_btc", "0.0013138419657384"], ["balance_usd_at_transaction", "1000.0"], ["balance_btc_at_transaction", "0.05"], ["created_at", "2024-11-09 16:33:07.267472"], ["updated_at", "2024-11-09 16:33:07.267472"]]
+  [1m[36mUser Update (0.5ms)[0m  [1m[33mUPDATE "users" SET "balance_usd" = $1, "balance_btc" = $2, "updated_at" = $3 WHERE "users"."id" = $4[0m  [["balance_usd", "900.0"], ["balance_btc", "0.051313841965738396"], ["updated_at", "2024-11-09 16:33:07.270089"], ["id", 47]]
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 47], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 47], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.7ms)[0m  [1m[34mSELECT COUNT(*) FROM "transactions"[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Create (0.5ms)[0m  [1m[32mINSERT INTO "users" ("balance_usd", "balance_btc", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["balance_usd", "1000.0"], ["balance_btc", "0.05"], ["created_at", "2024-11-09 16:33:07.304685"], ["updated_at", "2024-11-09 16:33:07.304685"]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mTransaction Create (0.8ms)[0m  [1m[32mINSERT INTO "transactions" ("user_id", "transaction_type", "amount_usd", "amount_btc", "balance_usd_at_transaction", "balance_btc_at_transaction", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING "id"[0m  [["user_id", 48], ["transaction_type", "buy"], ["amount_usd", "100.0"], ["amount_btc", "0.0013138419657384"], ["balance_usd_at_transaction", "1000.0"], ["balance_btc_at_transaction", "0.05"], ["created_at", "2024-11-09 16:33:07.338006"], ["updated_at", "2024-11-09 16:33:07.338006"]]
+  [1m[36mUser Update (0.9ms)[0m  [1m[33mUPDATE "users" SET "balance_usd" = $1, "balance_btc" = $2, "updated_at" = $3 WHERE "users"."id" = $4[0m  [["balance_usd", "900.0"], ["balance_btc", "0.051313841965738396"], ["updated_at", "2024-11-09 16:33:07.342204"], ["id", 48]]
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 48], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT COUNT(*) FROM "transactions"[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Create (0.3ms)[0m  [1m[32mINSERT INTO "users" ("balance_usd", "balance_btc", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["balance_usd", "1000.0"], ["balance_btc", "0.05"], ["created_at", "2024-11-09 16:33:07.348556"], ["updated_at", "2024-11-09 16:33:07.348556"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.6ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Create (0.5ms)[0m  [1m[32mINSERT INTO "users" ("balance_usd", "balance_btc", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["balance_usd", "1000.0"], ["balance_btc", "0.05"], ["created_at", "2024-11-09 16:35:51.466342"], ["updated_at", "2024-11-09 16:35:51.466342"]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mTransaction Create (1.0ms)[0m  [1m[32mINSERT INTO "transactions" ("user_id", "transaction_type", "amount_usd", "amount_btc", "balance_usd_at_transaction", "balance_btc_at_transaction", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING "id"[0m  [["user_id", 50], ["transaction_type", "buy"], ["amount_usd", "100.0"], ["amount_btc", "0.0013130729727686"], ["balance_usd_at_transaction", "1000.0"], ["balance_btc_at_transaction", "0.05"], ["created_at", "2024-11-09 16:35:51.616158"], ["updated_at", "2024-11-09 16:35:51.616158"]]
+  [1m[36mUser Update (0.6ms)[0m  [1m[33mUPDATE "users" SET "balance_usd" = $1, "balance_btc" = $2, "updated_at" = $3 WHERE "users"."id" = $4[0m  [["balance_usd", "900.0"], ["balance_btc", "0.051313072972768599"], ["updated_at", "2024-11-09 16:35:51.620582"], ["id", 50]]
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 50], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 50], ["LIMIT", 1]]
+  [1m[35m (0.6ms)[0m  [1m[34mSELECT COUNT(*) FROM "transactions"[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Create (0.7ms)[0m  [1m[32mINSERT INTO "users" ("balance_usd", "balance_btc", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["balance_usd", "1000.0"], ["balance_btc", "0.05"], ["created_at", "2024-11-09 16:35:51.657375"], ["updated_at", "2024-11-09 16:35:51.657375"]]
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mTransaction Create (0.3ms)[0m  [1m[32mINSERT INTO "transactions" ("user_id", "transaction_type", "amount_usd", "amount_btc", "balance_usd_at_transaction", "balance_btc_at_transaction", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING "id"[0m  [["user_id", 51], ["transaction_type", "sell"], ["amount_usd", "50.0"], ["amount_btc", "0.000656536486384299"], ["balance_usd_at_transaction", "1000.0"], ["balance_btc_at_transaction", "0.05"], ["created_at", "2024-11-09 16:35:51.684620"], ["updated_at", "2024-11-09 16:35:51.684620"]]
+  [1m[36mUser Update (0.2ms)[0m  [1m[33mUPDATE "users" SET "balance_usd" = $1, "balance_btc" = $2, "updated_at" = $3 WHERE "users"."id" = $4[0m  [["balance_usd", "1000.0006565364863842993"], ["balance_btc", "-49.95"], ["updated_at", "2024-11-09 16:35:51.686107"], ["id", 51]]
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 51], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 51], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1[0m  [["key", "schema_sha1"]]
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Create (0.2ms)[0m  [1m[32mINSERT INTO "users" ("balance_usd", "balance_btc", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["balance_usd", "1000.0"], ["balance_btc", "0.05"], ["created_at", "2024-11-09 16:36:06.191583"], ["updated_at", "2024-11-09 16:36:06.191583"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mTransaction Create (0.5ms)[0m  [1m[32mINSERT INTO "transactions" ("user_id", "transaction_type", "amount_usd", "amount_btc", "balance_usd_at_transaction", "balance_btc_at_transaction", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING "id"[0m  [["user_id", 52], ["transaction_type", "buy"], ["amount_usd", "100.0"], ["amount_btc", "0.00131314624851188"], ["balance_usd_at_transaction", "1000.0"], ["balance_btc_at_transaction", "0.05"], ["created_at", "2024-11-09 16:36:06.270769"], ["updated_at", "2024-11-09 16:36:06.270769"]]
+  [1m[36mUser Update (0.3ms)[0m  [1m[33mUPDATE "users" SET "balance_usd" = $1, "balance_btc" = $2, "updated_at" = $3 WHERE "users"."id" = $4[0m  [["balance_usd", "900.0"], ["balance_btc", "0.051313146248511877"], ["updated_at", "2024-11-09 16:36:06.272277"], ["id", 52]]
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 52], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 52], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Create (0.1ms)[0m  [1m[32mINSERT INTO "users" ("balance_usd", "balance_btc", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["balance_usd", "1000.0"], ["balance_btc", "0.05"], ["created_at", "2024-11-09 16:36:06.280643"], ["updated_at", "2024-11-09 16:36:06.280643"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mTransaction Create (0.5ms)[0m  [1m[32mINSERT INTO "transactions" ("user_id", "transaction_type", "amount_usd", "amount_btc", "balance_usd_at_transaction", "balance_btc_at_transaction", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING "id"[0m  [["user_id", 53], ["transaction_type", "buy"], ["amount_usd", "100.0"], ["amount_btc", "0.00131314624851188"], ["balance_usd_at_transaction", "1000.0"], ["balance_btc_at_transaction", "0.05"], ["created_at", "2024-11-09 16:36:06.304839"], ["updated_at", "2024-11-09 16:36:06.304839"]]
+  [1m[36mUser Update (0.4ms)[0m  [1m[33mUPDATE "users" SET "balance_usd" = $1, "balance_btc" = $2, "updated_at" = $3 WHERE "users"."id" = $4[0m  [["balance_usd", "900.0"], ["balance_btc", "0.051313146248511877"], ["updated_at", "2024-11-09 16:36:06.307137"], ["id", 53]]
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 53], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 53], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.5ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.7ms)[0m  [1m[34mSELECT COUNT(*) FROM "transactions"[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Create (0.4ms)[0m  [1m[32mINSERT INTO "users" ("balance_usd", "balance_btc", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["balance_usd", "1000.0"], ["balance_btc", "0.05"], ["created_at", "2024-11-09 16:36:06.343020"], ["updated_at", "2024-11-09 16:36:06.343020"]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mTransaction Create (0.8ms)[0m  [1m[32mINSERT INTO "transactions" ("user_id", "transaction_type", "amount_usd", "amount_btc", "balance_usd_at_transaction", "balance_btc_at_transaction", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING "id"[0m  [["user_id", 54], ["transaction_type", "buy"], ["amount_usd", "100.0"], ["amount_btc", "0.00131314624851188"], ["balance_usd_at_transaction", "1000.0"], ["balance_btc_at_transaction", "0.05"], ["created_at", "2024-11-09 16:36:06.373536"], ["updated_at", "2024-11-09 16:36:06.373536"]]
+  [1m[36mUser Update (0.4ms)[0m  [1m[33mUPDATE "users" SET "balance_usd" = $1, "balance_btc" = $2, "updated_at" = $3 WHERE "users"."id" = $4[0m  [["balance_usd", "900.0"], ["balance_btc", "0.051313146248511877"], ["updated_at", "2024-11-09 16:36:06.377310"], ["id", 54]]
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 54], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT COUNT(*) FROM "transactions"[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Create (0.3ms)[0m  [1m[32mINSERT INTO "users" ("balance_usd", "balance_btc", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["balance_usd", "1000.0"], ["balance_btc", "0.05"], ["created_at", "2024-11-09 16:36:06.383592"], ["updated_at", "2024-11-09 16:36:06.383592"]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Create (0.1ms)[0m  [1m[32mINSERT INTO "users" ("balance_usd", "balance_btc", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["balance_usd", "1000.0"], ["balance_btc", "0.05"], ["created_at", "2024-11-09 16:36:08.368756"], ["updated_at", "2024-11-09 16:36:08.368756"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mTransaction Create (0.8ms)[0m  [1m[32mINSERT INTO "transactions" ("user_id", "transaction_type", "amount_usd", "amount_btc", "balance_usd_at_transaction", "balance_btc_at_transaction", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING "id"[0m  [["user_id", 56], ["transaction_type", "buy"], ["amount_usd", "100.0"], ["amount_btc", "0.00131314624851188"], ["balance_usd_at_transaction", "1000.0"], ["balance_btc_at_transaction", "0.05"], ["created_at", "2024-11-09 16:36:08.396196"], ["updated_at", "2024-11-09 16:36:08.396196"]]
+  [1m[36mUser Update (0.5ms)[0m  [1m[33mUPDATE "users" SET "balance_usd" = $1, "balance_btc" = $2, "updated_at" = $3 WHERE "users"."id" = $4[0m  [["balance_usd", "900.0"], ["balance_btc", "0.051313146248511877"], ["updated_at", "2024-11-09 16:36:08.400058"], ["id", 56]]
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 56], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 56], ["LIMIT", 1]]
+  [1m[35m (0.6ms)[0m  [1m[34mSELECT COUNT(*) FROM "transactions"[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Create (0.6ms)[0m  [1m[32mINSERT INTO "users" ("balance_usd", "balance_btc", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["balance_usd", "1000.0"], ["balance_btc", "0.05"], ["created_at", "2024-11-09 16:36:08.433840"], ["updated_at", "2024-11-09 16:36:08.433840"]]
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mTransaction Create (0.9ms)[0m  [1m[32mINSERT INTO "transactions" ("user_id", "transaction_type", "amount_usd", "amount_btc", "balance_usd_at_transaction", "balance_btc_at_transaction", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING "id"[0m  [["user_id", 57], ["transaction_type", "sell"], ["amount_usd", "50.0"], ["amount_btc", "0.000656573124255939"], ["balance_usd_at_transaction", "1000.0"], ["balance_btc_at_transaction", "0.05"], ["created_at", "2024-11-09 16:36:08.465130"], ["updated_at", "2024-11-09 16:36:08.465130"]]
+  [1m[36mUser Update (0.7ms)[0m  [1m[33mUPDATE "users" SET "balance_usd" = $1, "balance_btc" = $2, "updated_at" = $3 WHERE "users"."id" = $4[0m  [["balance_usd", "1000.0006565731242559386"], ["balance_btc", "-49.95"], ["updated_at", "2024-11-09 16:36:08.469184"], ["id", 57]]
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 57], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 57], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1[0m  [["key", "schema_sha1"]]
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Create (0.2ms)[0m  [1m[32mINSERT INTO "users" ("balance_usd", "balance_btc", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["balance_usd", "1000.0"], ["balance_btc", "0.05"], ["created_at", "2024-11-09 16:38:39.798575"], ["updated_at", "2024-11-09 16:38:39.798575"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mTransaction Create (0.7ms)[0m  [1m[32mINSERT INTO "transactions" ("user_id", "transaction_type", "amount_usd", "amount_btc", "balance_usd_at_transaction", "balance_btc_at_transaction", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING "id"[0m  [["user_id", 58], ["transaction_type", "buy"], ["amount_usd", "100.0"], ["amount_btc", "0.00131260343971407"], ["balance_usd_at_transaction", "1000.0"], ["balance_btc_at_transaction", "0.05"], ["created_at", "2024-11-09 16:38:39.927623"], ["updated_at", "2024-11-09 16:38:39.927623"]]
+  [1m[36mUser Update (0.2ms)[0m  [1m[33mUPDATE "users" SET "balance_usd" = $1, "balance_btc" = $2, "updated_at" = $3 WHERE "users"."id" = $4[0m  [["balance_usd", "900.0"], ["balance_btc", "0.051312603439714067"], ["updated_at", "2024-11-09 16:38:39.929484"], ["id", 58]]
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 58], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 58], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Create (0.2ms)[0m  [1m[32mINSERT INTO "users" ("balance_usd", "balance_btc", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["balance_usd", "1000.0"], ["balance_btc", "0.05"], ["created_at", "2024-11-09 16:38:39.938561"], ["updated_at", "2024-11-09 16:38:39.938561"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mTransaction Create (0.4ms)[0m  [1m[32mINSERT INTO "transactions" ("user_id", "transaction_type", "amount_usd", "amount_btc", "balance_usd_at_transaction", "balance_btc_at_transaction", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING "id"[0m  [["user_id", 59], ["transaction_type", "buy"], ["amount_usd", "100.0"], ["amount_btc", "0.00131260343971407"], ["balance_usd_at_transaction", "1000.0"], ["balance_btc_at_transaction", "0.05"], ["created_at", "2024-11-09 16:38:39.960148"], ["updated_at", "2024-11-09 16:38:39.960148"]]
+  [1m[36mUser Update (0.3ms)[0m  [1m[33mUPDATE "users" SET "balance_usd" = $1, "balance_btc" = $2, "updated_at" = $3 WHERE "users"."id" = $4[0m  [["balance_usd", "900.0"], ["balance_btc", "0.051312603439714067"], ["updated_at", "2024-11-09 16:38:39.962089"], ["id", 59]]
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 59], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 59], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.8ms)[0m  [1m[34mSELECT COUNT(*) FROM "transactions"[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Create (0.3ms)[0m  [1m[32mINSERT INTO "users" ("balance_usd", "balance_btc", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["balance_usd", "1000.0"], ["balance_btc", "0.05"], ["created_at", "2024-11-09 16:38:39.997276"], ["updated_at", "2024-11-09 16:38:39.997276"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mTransaction Create (0.6ms)[0m  [1m[32mINSERT INTO "transactions" ("user_id", "transaction_type", "amount_usd", "amount_btc", "balance_usd_at_transaction", "balance_btc_at_transaction", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING "id"[0m  [["user_id", 60], ["transaction_type", "buy"], ["amount_usd", "100.0"], ["amount_btc", "0.00131260343971407"], ["balance_usd_at_transaction", "1000.0"], ["balance_btc_at_transaction", "0.05"], ["created_at", "2024-11-09 16:38:40.029568"], ["updated_at", "2024-11-09 16:38:40.029568"]]
+  [1m[36mUser Update (0.8ms)[0m  [1m[33mUPDATE "users" SET "balance_usd" = $1, "balance_btc" = $2, "updated_at" = $3 WHERE "users"."id" = $4[0m  [["balance_usd", "900.0"], ["balance_btc", "0.051312603439714067"], ["updated_at", "2024-11-09 16:38:40.033414"], ["id", 60]]
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 60], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT COUNT(*) FROM "transactions"[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Create (0.3ms)[0m  [1m[32mINSERT INTO "users" ("balance_usd", "balance_btc", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["balance_usd", "1000.0"], ["balance_btc", "0.05"], ["created_at", "2024-11-09 16:38:40.038838"], ["updated_at", "2024-11-09 16:38:40.038838"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Create (0.2ms)[0m  [1m[32mINSERT INTO "users" ("balance_usd", "balance_btc", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["balance_usd", "1000.0"], ["balance_btc", "0.05"], ["created_at", "2024-11-09 16:38:40.052314"], ["updated_at", "2024-11-09 16:38:40.052314"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mTransaction Create (0.4ms)[0m  [1m[32mINSERT INTO "transactions" ("user_id", "transaction_type", "amount_usd", "amount_btc", "balance_usd_at_transaction", "balance_btc_at_transaction", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING "id"[0m  [["user_id", 62], ["transaction_type", "buy"], ["amount_usd", "100.0"], ["amount_btc", "0.00131260343971407"], ["balance_usd_at_transaction", "1000.0"], ["balance_btc_at_transaction", "0.05"], ["created_at", "2024-11-09 16:38:40.076965"], ["updated_at", "2024-11-09 16:38:40.076965"]]
+  [1m[36mUser Update (0.3ms)[0m  [1m[33mUPDATE "users" SET "balance_usd" = $1, "balance_btc" = $2, "updated_at" = $3 WHERE "users"."id" = $4[0m  [["balance_usd", "900.0"], ["balance_btc", "0.051312603439714067"], ["updated_at", "2024-11-09 16:38:40.079225"], ["id", 62]]
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 62], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 62], ["LIMIT", 1]]
+  [1m[35m (0.5ms)[0m  [1m[34mSELECT COUNT(*) FROM "transactions"[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Create (0.3ms)[0m  [1m[32mINSERT INTO "users" ("balance_usd", "balance_btc", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["balance_usd", "1000.0"], ["balance_btc", "0.05"], ["created_at", "2024-11-09 16:38:40.110136"], ["updated_at", "2024-11-09 16:38:40.110136"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mTransaction Create (0.7ms)[0m  [1m[32mINSERT INTO "transactions" ("user_id", "transaction_type", "amount_usd", "amount_btc", "balance_usd_at_transaction", "balance_btc_at_transaction", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING "id"[0m  [["user_id", 63], ["transaction_type", "sell"], ["amount_usd", "50.0"], ["amount_btc", "0.000656301719857033"], ["balance_usd_at_transaction", "1000.0"], ["balance_btc_at_transaction", "0.05"], ["created_at", "2024-11-09 16:38:40.141326"], ["updated_at", "2024-11-09 16:38:40.141326"]]
+  [1m[36mUser Update (0.4ms)[0m  [1m[33mUPDATE "users" SET "balance_usd" = $1, "balance_btc" = $2, "updated_at" = $3 WHERE "users"."id" = $4[0m  [["balance_usd", "1000.0006563017198570333"], ["balance_btc", "-49.95"], ["updated_at", "2024-11-09 16:38:40.145337"], ["id", 63]]
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 63], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 63], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1[0m  [["key", "schema_sha1"]]
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Create (0.2ms)[0m  [1m[32mINSERT INTO "users" ("balance_usd", "balance_btc", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["balance_usd", "1000.0"], ["balance_btc", "0.05"], ["created_at", "2024-11-09 16:38:47.751921"], ["updated_at", "2024-11-09 16:38:47.751921"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mTransaction Create (0.5ms)[0m  [1m[32mINSERT INTO "transactions" ("user_id", "transaction_type", "amount_usd", "amount_btc", "balance_usd_at_transaction", "balance_btc_at_transaction", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING "id"[0m  [["user_id", 64], ["transaction_type", "buy"], ["amount_usd", "100.0"], ["amount_btc", "0.00131260343971407"], ["balance_usd_at_transaction", "1000.0"], ["balance_btc_at_transaction", "0.05"], ["created_at", "2024-11-09 16:38:47.782961"], ["updated_at", "2024-11-09 16:38:47.782961"]]
+  [1m[36mUser Update (0.1ms)[0m  [1m[33mUPDATE "users" SET "balance_usd" = $1, "balance_btc" = $2, "updated_at" = $3 WHERE "users"."id" = $4[0m  [["balance_usd", "900.0"], ["balance_btc", "0.051312603439714067"], ["updated_at", "2024-11-09 16:38:47.784169"], ["id", 64]]
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 64], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 64], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Create (0.1ms)[0m  [1m[32mINSERT INTO "users" ("balance_usd", "balance_btc", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["balance_usd", "1000.0"], ["balance_btc", "0.05"], ["created_at", "2024-11-09 16:38:47.791641"], ["updated_at", "2024-11-09 16:38:47.791641"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mTransaction Create (0.4ms)[0m  [1m[32mINSERT INTO "transactions" ("user_id", "transaction_type", "amount_usd", "amount_btc", "balance_usd_at_transaction", "balance_btc_at_transaction", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING "id"[0m  [["user_id", 65], ["transaction_type", "buy"], ["amount_usd", "100.0"], ["amount_btc", "0.00131260343971407"], ["balance_usd_at_transaction", "1000.0"], ["balance_btc_at_transaction", "0.05"], ["created_at", "2024-11-09 16:38:47.813238"], ["updated_at", "2024-11-09 16:38:47.813238"]]
+  [1m[36mUser Update (0.3ms)[0m  [1m[33mUPDATE "users" SET "balance_usd" = $1, "balance_btc" = $2, "updated_at" = $3 WHERE "users"."id" = $4[0m  [["balance_usd", "900.0"], ["balance_btc", "0.051312603439714067"], ["updated_at", "2024-11-09 16:38:47.814957"], ["id", 65]]
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 65], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 65], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.6ms)[0m  [1m[34mSELECT COUNT(*) FROM "transactions"[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Create (0.3ms)[0m  [1m[32mINSERT INTO "users" ("balance_usd", "balance_btc", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["balance_usd", "1000.0"], ["balance_btc", "0.05"], ["created_at", "2024-11-09 16:38:47.849320"], ["updated_at", "2024-11-09 16:38:47.849320"]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mTransaction Create (0.7ms)[0m  [1m[32mINSERT INTO "transactions" ("user_id", "transaction_type", "amount_usd", "amount_btc", "balance_usd_at_transaction", "balance_btc_at_transaction", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING "id"[0m  [["user_id", 66], ["transaction_type", "buy"], ["amount_usd", "100.0"], ["amount_btc", "0.00131260343971407"], ["balance_usd_at_transaction", "1000.0"], ["balance_btc_at_transaction", "0.05"], ["created_at", "2024-11-09 16:38:47.879307"], ["updated_at", "2024-11-09 16:38:47.879307"]]
+  [1m[36mUser Update (0.5ms)[0m  [1m[33mUPDATE "users" SET "balance_usd" = $1, "balance_btc" = $2, "updated_at" = $3 WHERE "users"."id" = $4[0m  [["balance_usd", "900.0"], ["balance_btc", "0.051312603439714067"], ["updated_at", "2024-11-09 16:38:47.883067"], ["id", 66]]
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 66], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT COUNT(*) FROM "transactions"[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Create (0.2ms)[0m  [1m[32mINSERT INTO "users" ("balance_usd", "balance_btc", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["balance_usd", "1000.0"], ["balance_btc", "0.05"], ["created_at", "2024-11-09 16:38:47.889291"], ["updated_at", "2024-11-09 16:38:47.889291"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Create (0.2ms)[0m  [1m[32mINSERT INTO "users" ("balance_usd", "balance_btc", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["balance_usd", "1000.0"], ["balance_btc", "0.05"], ["created_at", "2024-11-09 16:38:47.900259"], ["updated_at", "2024-11-09 16:38:47.900259"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mTransaction Create (0.4ms)[0m  [1m[32mINSERT INTO "transactions" ("user_id", "transaction_type", "amount_usd", "amount_btc", "balance_usd_at_transaction", "balance_btc_at_transaction", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING "id"[0m  [["user_id", 68], ["transaction_type", "buy"], ["amount_usd", "100.0"], ["amount_btc", "0.00131260343971407"], ["balance_usd_at_transaction", "1000.0"], ["balance_btc_at_transaction", "0.05"], ["created_at", "2024-11-09 16:38:47.927224"], ["updated_at", "2024-11-09 16:38:47.927224"]]
+  [1m[36mUser Update (0.3ms)[0m  [1m[33mUPDATE "users" SET "balance_usd" = $1, "balance_btc" = $2, "updated_at" = $3 WHERE "users"."id" = $4[0m  [["balance_usd", "900.0"], ["balance_btc", "0.051312603439714067"], ["updated_at", "2024-11-09 16:38:47.930827"], ["id", 68]]
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 68], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 68], ["LIMIT", 1]]
+  [1m[35m (0.6ms)[0m  [1m[34mSELECT COUNT(*) FROM "transactions"[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Create (0.3ms)[0m  [1m[32mINSERT INTO "users" ("balance_usd", "balance_btc", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["balance_usd", "1000.0"], ["balance_btc", "0.05"], ["created_at", "2024-11-09 16:38:47.962688"], ["updated_at", "2024-11-09 16:38:47.962688"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mTransaction Create (0.3ms)[0m  [1m[32mINSERT INTO "transactions" ("user_id", "transaction_type", "amount_usd", "amount_btc", "balance_usd_at_transaction", "balance_btc_at_transaction", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING "id"[0m  [["user_id", 69], ["transaction_type", "sell"], ["amount_usd", "50.0"], ["amount_btc", "0.000656301719857033"], ["balance_usd_at_transaction", "1000.0"], ["balance_btc_at_transaction", "0.05"], ["created_at", "2024-11-09 16:38:47.988828"], ["updated_at", "2024-11-09 16:38:47.988828"]]
+  [1m[36mUser Update (0.3ms)[0m  [1m[33mUPDATE "users" SET "balance_usd" = $1, "balance_btc" = $2, "updated_at" = $3 WHERE "users"."id" = $4[0m  [["balance_usd", "1000.0006563017198570333"], ["balance_btc", "-49.95"], ["updated_at", "2024-11-09 16:38:47.990799"], ["id", 69]]
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 69], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 69], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[31mROLLBACK[0m
